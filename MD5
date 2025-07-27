@@ -1,8 +1,8 @@
-9a86c3ce643022e9cb0627324a039c1e *DESCRIPTION
+82b9a5d6d3fdb2e82a4d1d9f718c8306 *DESCRIPTION
 0352d06c48c673ddd4e18bcbd1a11111 *LICENSE
 404a193c51ab92392a8e771426c9e745 *NAMESPACE
-8557a897e54aebaf6e7a1b8f2fb4b71d *NEWS.md
-ff0dabcbbcc4f74a12ca9caa2435d9f5 *R/NumericEnsembles.R
+b3ccb569037c2a8a7f3969af934c3ba9 *NEWS.md
+9ae979cb12cf490885b96daab03d10fc *R/NumericEnsembles.R
 13530f4d2ea698609384e539f4296ddb *R/data.R
 46b75cb780705ef4b3bf48eb6de51d33 *README.md
 4f8ed8086610bc63c82b6c0ada1153f1 *build/vignette.rds
@@ -16,7 +16,7 @@ a1d1d9304be9fc0f19eac79b7483ea08 *inst/doc/NumericEnsembles.Rmd
 f43959981bd7819557bb40471190ee03 *man/Concrete.Rd
 7c32740c8423fab10a7e8dd30cd9d49a *man/Insurance.Rd
 376deeeb3a932d438784c6e35622e995 *man/New_Boston.Rd
-92d3c43500e222befdaee44b04ec866e *man/Numeric.Rd
+cd16a44df4df22ca93f6058bc93b46a8 *man/Numeric.Rd
 b59cf8b6e3f951558725762343149963 *vignettes/Accuracy_barchart.jpeg
 b7ab5e155e2232df42a0cc6bf48cfa33 *vignettes/BayesRNN_options.jpg
 3f15080b6ee8f1dd7034b50f3c60d8e4 *vignettes/Best_model_actual_vs_predicted.jpeg
