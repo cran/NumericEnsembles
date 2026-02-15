@@ -1,3 +1,28 @@
+# 1.0.0
+## All desired features are included and working great, ready for version 1.0.0!
+
+# 0.10.10
+## Added stratified random sampling
+## Added extensive documentation, set up sections so the code is easy for the user to navigate.
+
+# 0.10.9
+## Added several functions to separate best performing from worst performing data, using the vip package
+
+# 0.10.8
+## Removed ensemble_XGBoost due to problems with overfitting, replaced with ensemble_neuralnet, which does not have any issues with overfitting.
+
+# 0.10.7
+## Added automatic stratified sampling for train, test and validation sets. Also added automatic histograms of the overfitting data.
+
+# 0.10.6
+## Add back remove_data_correlations_greater_than. This addresses issues when data has columns that are highly correlated.
+
+# 0.10.5
+## Fix name: Change holdout / RMSE to overfitting (both more accurate and easier to understand)
+
+# 0.10.4
+## Remove all references to MAE, MSE, SSE
+
 # 0.10.3
 ## Update version number to reflect all changes.
 

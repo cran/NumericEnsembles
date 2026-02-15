@@ -1,8 +1,8 @@
 ---
-title: "Report on (data set)"
+title: "NumericEnsembles Report Template"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Template}
+  %\VignetteIndexEntry{NumericEnsembles Report Template}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -19,6 +19,10 @@ editor_options:
 # Literature review/summary, history of previous results
 
 # The goal of this investigation
+
+# Original source of the data
+
+# Github repository for reproducible results
 
 # Exploratory Data Analysis
 
@@ -54,6 +58,8 @@ editor_options:
 
 16. Discussion of correlation of the data (report and charts)
 
+17. VIF report
+
 # Model building
 
 ### Function call (replace with your function call):
@@ -64,6 +70,7 @@ Numeric(data = MASS::Boston,
         colnum = 14,
         numresamples = 25,
         remove_VIF_above = 5.00,
+        remove_data_correlations_greater_thank = 0.99,
         remove_ensemble_correlations_greater_than = 1.00,
         scale_all_predictors_in_data = "N",
         data_reduction_method = 1,
@@ -264,9 +271,8 @@ xgb_model <- xgboost::xgb.train(data = xgb_train, max.depth = 3, watchlist = wat
       "Ridge" = y_hat_ridge *1 / ridge_holdout_RMSE_mean,
       "Rpart" = y_hat_rpart * 1 / rpart_holdout_RMSE_mean,
       "SVM" = y_hat_svm * 1 / svm_holdout_RMSE_mean,
-      "Tree" = y_hat_tree * 1 / tree_holdout_RMSE_mean,
-      "XGBoost" = y_hat_xgb * 1 / xgb_holdout_RMSE_mean
-    )
+      "Tree" = y_hat_tree * 1 / tree_holdout_RMSE_mean
+      )
 
 ensemble$y_ensemble <- c(test$y, validation$y)
 y_ensemble <- c(test$y, validation$y)
@@ -345,6 +351,11 @@ ensemble_best_lasso_model <- glmnet(ensemble_x, ensemble_y, alpha = 1, lambda = 
 ensemble_linear_train_fit <- e1071::tune.rpart(formula = y_ensemble ~ ., data = ensemble_train)
 ```
 
+**Ensemble Neuralnet**
+
+ensemble_neuralnet \<- nnet::nnet(ensemble_train\$y_ensemble \~ ., data
+= ensemble_train, size = 0, linout = TRUE, skip = TRUE)
+
 **Ensemble Ridge:**
 
 ```         
@@ -374,35 +385,11 @@ ensemble_svm_train_fit <- e1071::tune.svm(x = ensemble_train, y = ensemble_train
 ensemble_tree_train_fit <- tree::tree(ensemble_train$y_ensemble ~ ., data = ensemble_train)
 ```
 
-**Ensemble XGBoost (Extreme Gradient Boosting):**
+# How the data was split to prevent overfitting
 
-```         
-ensemble_train_x <- data.matrix(ensemble_train[, -ncol(ensemble_train)])
-ensemble_train_y <- ensemble_train[, ncol(ensemble_train)]
+# Tuning models
 
-# define predictor and response variables in test set
-ensemble_test_x <- data.matrix(ensemble_test[, -ncol(ensemble_test)])
-ensemble_test_y <- ensemble_test[, ncol(ensemble_test)]
-
-# define predictor and response variables in validation set
-ensemble_validation_x <- data.matrix(ensemble_validation[, -ncol(ensemble_validation)])
-ensemble_validation_y <- ensemble_validation[, ncol(ensemble_validation)]
-
-# define final train, test and validationing sets
-ensemble_xgb_train <- xgboost::xgb.DMatrix(data = ensemble_train_x, label = ensemble_train_y)
-ensemble_xgb_test <- xgboost::xgb.DMatrix(data = ensemble_test_x, label = ensemble_test_y)
-ensemble_xgb_validation <- xgboost::xgb.DMatrix(data = ensemble_validation_x, label = ensemble_validation_y)
-
-# define watchlist
-ensemble_watchlist <- list(train = ensemble_xgb_train, validation = ensemble_xgb_validation)
-ensemble_watchlist_test <- list(train = ensemble_xgb_train, test = ensemble_xgb_test)
-ensemble_watchlist_validation <- list(train = ensemble_xgb_train, validation = ensemble_xgb_validation)
-
-# fit XGBoost model and display training and validation data at each round
-
-ensemble_xgb_model <- xgboost::xgb.train(data = ensemble_xgb_train, max.depth = 3, watchlist = ensemble_watchlist_test, nrounds = 70)
-ensemble_xgb_model_validation <- xgboost::xgb.train(data = ensemble_xgb_train, max.depth = 3, watchlist = ensemble_watchlist_validation, nrounds = 70)
-```
+# Optimizing hyperparameters
 
 # Model evaluations
 
@@ -413,23 +400,31 @@ ensemble_xgb_model_validation <- xgboost::xgb.train(data = ensemble_xgb_train, m
 
 3.  Mean bias barchart
 
-4.  Duration barchart
+4.  Bias plot
 
-5.  Head of the ensemble (report)
+5.  Duration barchart
 
-6.  Holdout RMSE / Train RMSE barchart (measures reproducibility)
+6.  Head of the ensemble (report)
 
-7.  Holdout RMSE / Train RMSE (choose fixed or free scales)
+7.  Overfitting (Holdout RMSE / Train RMSE) barchart (measures
+    reproducibility)
 
-8.  Kolomogorov-Smirnov test barchart
+8.  Overfitting (Holdout RMSE / Train RMSE) by model and resample
+    (choose fixed or free scales)
 
-9.  t-test bar chart
+9.  Overfitting histograms
 
-10. Train vs holdout by model and resample (choose fixed or free scales)
+10. Kolomogorov-Smirnov test barchart
 
-11. Summary report
+11. t-test bar chart
 
-12. Variance Inflation Factor report
+12. Train vs holdout by model and resample (choose fixed or free scales)
+
+13. Summary report
+
+14. Ensemble Correlation report
+
+15. Head of ensemble report
 
 # Final model selection
 

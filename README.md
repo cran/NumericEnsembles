@@ -30,6 +30,7 @@ Numeric(data = MASS::Boston,
         ensemble_reduction_method = 0,
         how_to_handle_strings = 0,
         predict_on_new_data = "N",
+        stratified_random_sampling = 0,
         save_all_trained_models = "N",
         set_seed = "N",
         save_all_plots = "N",
@@ -37,7 +38,6 @@ Numeric(data = MASS::Boston,
         train_amount = 0.60,
         test_amount = 0.20,
         validation_amount = 0.20)
-
 ```
 
 The 32 models which are all built automatically and without error are:
@@ -57,11 +57,11 @@ The 32 models which are all built automatically and without error are:
 13. Ensemble Gradient Boosted
 14. Ensemble Lasso (optimized by cross-validation)
 15. Ensemble Linear (tuned)
-16. Ensemble Ridge (optimized by cross-validation)
-17. Ensemble RPart
-18. EnsembleSVM (tuned)
-19. Ensemble Trees
-20. Ensemble XGBoost
+16. Ensemble Neuralnet (optimized)
+17. Ensemble Ridge (optimized by cross-validation)
+18. Ensemble RPart
+10. EnsembleSVM (tuned)
+20. Ensemble Trees
 21. GAM (Generalized Additive Models, with smoothing splines)
 22. Gradient Boosted (optimized)
 23. Lasso
@@ -87,26 +87,21 @@ The 30 plots created automatically:
 08. Most accurate model: Q-Q plot
 09. Accuracy by resample and model, fixed scales
 10. Accuracy by resample and model, free scales
-11. Holdout RMSE/train RMSE, fixed scales
-12. Holdout RMSE/train RMSE, free scales
+11. Train vs holdout by model and resample, fixed scales
+12. Train vs holdout by model and resample, free scales
 13. Histograms of each numeric column
 14. Boxplots of each numeric column
 15. Predictor vs target variable
 16. Model accuracy bar chart (RMSE)
 17. t-test p-value bar chart
-18. Train vs holdout by resample and model, free scales
-19. Train vs holdout by resampleand model, fixed scales
+18. Overfitting by resample and model, free scales
+19. Overfitting by resampleand model, fixed scales
 20. Duration bar chart
-21. Holdout RMSE / train RMSE bar chart
+21. Overfitting bar chart
+22. Overfitting histograms
 22. Mean bias bar chart
-23. Mean MSE bar chart
-24. Mean MAE bar chart
-25. Mean SSE bar chart
-26. Kolmogorov-Smirnof test bar chart
-27. Bias plot by model and resample
-28. MSE plot by model and resample
-29. MAE plot by model and resample
-30. SSE plot by model and resample
+23. Kolmogorov-Smirnof test bar chart
+24. Bias plot by model and resample
 
 The tables created automatically (which are both searchable and sortable) are:
 
@@ -126,21 +121,15 @@ The tables created automatically (which are both searchable and sortable) are:
   8. Kolmogorov-Smirnov stat standard deviation
   9. Mean bias
   10. Mean bias standard deviation
-  11. Mean MAE
-  12. Mean MAE standard deviation
-  13. Mean MSE
-  14. Mean MSE standard deviation
-  15. Mean SSE
-  16. Mean SSE standard deviation
-  17. Mean data (this is the mean of the target column in the original data set)
-  18. Standard deviation of mean data (this is the standard deviation of the data in the target column in the original data set)
-  19. Mean train RMSE
-  20. Mean test RMSE
-  21. Mean validation RMSE
-  22. Holdout vs train mean
-  23. Holdout vs train standard deviation
-  24. Duration
-  25. Duration standard deviation
+  11. Mean data (this is the mean of the target column in the original data set)
+  12. Standard deviation of mean data (this is the standard deviation of the data in the target column in the original data set)
+  13. Mean train RMSE
+  14. Mean test RMSE
+  15. Mean validation RMSE
+  16. Holdout vs train mean
+  17. Holdout vs train standard deviation
+  19. Duration
+  19. Duration standard deviation
 
 ## Example using pre-trained models on totally new data in the NumericEnsembles package
 

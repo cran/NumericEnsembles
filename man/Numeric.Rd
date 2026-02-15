@@ -2,13 +2,14 @@
 % Please edit documentation in R/NumericEnsembles.R
 \name{Numeric}
 \alias{Numeric}
-\title{Numeric—function to automatically build 23 individual models and 17 ensembles then return the results to the user}
+\title{Numeric—function to automatically build 18 individual models and 14 ensembles then return the results to the user}
 \usage{
 Numeric(
   data,
   colnum,
   numresamples,
   remove_VIF_above = 5,
+  remove_data_correlations_greater_than = 0.99,
   remove_ensemble_correlations_greater_than = 0.98,
   scale_all_predictors_in_data = c("Y", "N"),
   data_reduction_method = c(0("none"), 1("BIC exhaustive"), 2("BIC forward"),
@@ -24,6 +25,7 @@ Numeric(
   save_all_trained_models = c("Y", "N"),
   save_all_plots = c("Y", "N"),
   use_parallel = c("Y", "N"),
+  stratified_random_column,
   train_amount,
   test_amount,
   validation_amount
@@ -37,6 +39,8 @@ Numeric(
 \item{numresamples}{the number of resamples}
 
 \item{remove_VIF_above}{remove columns with Variable Inflation Factor above value chosen by the user}
+
+\item{remove_data_correlations_greater_than}{maximum value for correlations of the original data (such as the Boston Housing data set)}
 
 \item{remove_ensemble_correlations_greater_than}{maximum value for correlations of the ensemble}
 
@@ -52,11 +56,13 @@ Numeric(
 
 \item{set_seed}{"Y" or "N" to set the seed to make the results fully reproducible}
 
-\item{save_all_trained_models}{"Y" or "N". If "Y", then places all the trained models in the Environment}
+\item{save_all_trained_models}{"Y" or "N". If "Y", then places all the trained models in the temporary directory, tempdir(), and the trained models may be retreived from there}
 
-\item{save_all_plots}{Saves all plots to the working directory}
+\item{save_all_plots}{Saves all plots to the tempdir() directory, and the plots may be retreived from there}
 
 \item{use_parallel}{"Y" or "N" for parallel processing}
+
+\item{stratified_random_column}{0 if no stratified random sampling, or column number for stratified random sampling}
 
 \item{train_amount}{set the amount for the training data}
 
@@ -68,5 +74,5 @@ Numeric(
 a real number
 }
 \description{
-Numeric—function to automatically build 23 individual models and 17 ensembles then return the results to the user
+Numeric—function to automatically build 18 individual models and 14 ensembles then return the results to the user
 }

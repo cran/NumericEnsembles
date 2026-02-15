@@ -12,7 +12,7 @@
 
 
 
-<title>Report on (data set)</title>
+<title>NumericEnsembles Report Template</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -235,7 +235,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Report on (data set)</h1>
+<h1 class="title toc-ignore">NumericEnsembles Report Template</h1>
 
 
 
@@ -253,6 +253,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="the-goal-of-this-investigation" class="section level1">
 <h1>The goal of this investigation</h1>
+</div>
+<div id="original-source-of-the-data" class="section level1">
+<h1>Original source of the data</h1>
+</div>
+<div id="github-repository-for-reproducible-results" class="section level1">
+<h1>Github repository for reproducible results</h1>
 </div>
 <div id="exploratory-data-analysis" class="section level1">
 <h1>Exploratory Data Analysis</h1>
@@ -276,6 +282,7 @@ colors</p></li>
 <li><p>Correlation of the data (report)</p></li>
 <li><p>Discussion of correlation of the data (report and
 charts)</p></li>
+<li><p>VIF report</p></li>
 </ol>
 </div>
 <div id="model-building" class="section level1">
@@ -287,6 +294,7 @@ Numeric(data = MASS::Boston,
         colnum = 14,
         numresamples = 25,
         remove_VIF_above = 5.00,
+        remove_data_correlations_greater_thank = 0.99,
         remove_ensemble_correlations_greater_than = 1.00,
         scale_all_predictors_in_data = &quot;N&quot;,
         data_reduction_method = 1,
@@ -422,9 +430,8 @@ xgb_model &lt;- xgboost::xgb.train(data = xgb_train, max.depth = 3, watchlist = 
       &quot;Ridge&quot; = y_hat_ridge *1 / ridge_holdout_RMSE_mean,
       &quot;Rpart&quot; = y_hat_rpart * 1 / rpart_holdout_RMSE_mean,
       &quot;SVM&quot; = y_hat_svm * 1 / svm_holdout_RMSE_mean,
-      &quot;Tree&quot; = y_hat_tree * 1 / tree_holdout_RMSE_mean,
-      &quot;XGBoost&quot; = y_hat_xgb * 1 / xgb_holdout_RMSE_mean
-    )
+      &quot;Tree&quot; = y_hat_tree * 1 / tree_holdout_RMSE_mean
+      )
 
 ensemble$y_ensemble &lt;- c(test$y, validation$y)
 y_ensemble &lt;- c(test$y, validation$y)
@@ -466,6 +473,9 @@ ensemble_best_lasso_lambda &lt;- ensemble_lasso_cv$lambda.min
 ensemble_best_lasso_model &lt;- glmnet(ensemble_x, ensemble_y, alpha = 1, lambda = ensemble_best_lasso_lambda)</code></pre>
 <p><strong>Ensemble Linear (optimized by tuning):</strong></p>
 <pre><code>ensemble_linear_train_fit &lt;- e1071::tune.rpart(formula = y_ensemble ~ ., data = ensemble_train)</code></pre>
+<p><strong>Ensemble Neuralnet</strong></p>
+<p>ensemble_neuralnet &lt;- nnet::nnet(ensemble_train$y_ensemble ~ .,
+data = ensemble_train, size = 0, linout = TRUE, skip = TRUE)</p>
 <p><strong>Ensemble Ridge:</strong></p>
 <pre><code>ensemble_y &lt;- ensemble_train$y_ensemble
 ensemble_x &lt;- data.matrix(ensemble_train %&gt;% dplyr::select(-y_ensemble))
@@ -480,33 +490,16 @@ tuning):</strong></p>
 <pre><code>ensemble_svm_train_fit &lt;- e1071::tune.svm(x = ensemble_train, y = ensemble_train$y_ensemble, data = ensemble_train)</code></pre>
 <p><strong>Ensemble Trees:</strong></p>
 <pre><code>ensemble_tree_train_fit &lt;- tree::tree(ensemble_train$y_ensemble ~ ., data = ensemble_train)</code></pre>
-<p><strong>Ensemble XGBoost (Extreme Gradient Boosting):</strong></p>
-<pre><code>ensemble_train_x &lt;- data.matrix(ensemble_train[, -ncol(ensemble_train)])
-ensemble_train_y &lt;- ensemble_train[, ncol(ensemble_train)]
-
-# define predictor and response variables in test set
-ensemble_test_x &lt;- data.matrix(ensemble_test[, -ncol(ensemble_test)])
-ensemble_test_y &lt;- ensemble_test[, ncol(ensemble_test)]
-
-# define predictor and response variables in validation set
-ensemble_validation_x &lt;- data.matrix(ensemble_validation[, -ncol(ensemble_validation)])
-ensemble_validation_y &lt;- ensemble_validation[, ncol(ensemble_validation)]
-
-# define final train, test and validationing sets
-ensemble_xgb_train &lt;- xgboost::xgb.DMatrix(data = ensemble_train_x, label = ensemble_train_y)
-ensemble_xgb_test &lt;- xgboost::xgb.DMatrix(data = ensemble_test_x, label = ensemble_test_y)
-ensemble_xgb_validation &lt;- xgboost::xgb.DMatrix(data = ensemble_validation_x, label = ensemble_validation_y)
-
-# define watchlist
-ensemble_watchlist &lt;- list(train = ensemble_xgb_train, validation = ensemble_xgb_validation)
-ensemble_watchlist_test &lt;- list(train = ensemble_xgb_train, test = ensemble_xgb_test)
-ensemble_watchlist_validation &lt;- list(train = ensemble_xgb_train, validation = ensemble_xgb_validation)
-
-# fit XGBoost model and display training and validation data at each round
-
-ensemble_xgb_model &lt;- xgboost::xgb.train(data = ensemble_xgb_train, max.depth = 3, watchlist = ensemble_watchlist_test, nrounds = 70)
-ensemble_xgb_model_validation &lt;- xgboost::xgb.train(data = ensemble_xgb_train, max.depth = 3, watchlist = ensemble_watchlist_validation, nrounds = 70)</code></pre>
 </div>
+</div>
+<div id="how-the-data-was-split-to-prevent-overfitting" class="section level1">
+<h1>How the data was split to prevent overfitting</h1>
+</div>
+<div id="tuning-models" class="section level1">
+<h1>Tuning models</h1>
+</div>
+<div id="optimizing-hyperparameters" class="section level1">
+<h1>Optimizing hyperparameters</h1>
 </div>
 <div id="model-evaluations" class="section level1">
 <h1>Model evaluations</h1>
@@ -516,17 +509,21 @@ all models (put model accuracy barchart here)</p></li>
 <li><p>Accuracy (choose fixed or free scales) by resample and model
 here</p></li>
 <li><p>Mean bias barchart</p></li>
+<li><p>Bias plot</p></li>
 <li><p>Duration barchart</p></li>
 <li><p>Head of the ensemble (report)</p></li>
-<li><p>Holdout RMSE / Train RMSE barchart (measures
+<li><p>Overfitting (Holdout RMSE / Train RMSE) barchart (measures
 reproducibility)</p></li>
-<li><p>Holdout RMSE / Train RMSE (choose fixed or free scales)</p></li>
+<li><p>Overfitting (Holdout RMSE / Train RMSE) by model and resample
+(choose fixed or free scales)</p></li>
+<li><p>Overfitting histograms</p></li>
 <li><p>Kolomogorov-Smirnov test barchart</p></li>
 <li><p>t-test bar chart</p></li>
 <li><p>Train vs holdout by model and resample (choose fixed or free
 scales)</p></li>
 <li><p>Summary report</p></li>
-<li><p>Variance Inflation Factor report</p></li>
+<li><p>Ensemble Correlation report</p></li>
+<li><p>Head of ensemble report</p></li>
 </ol>
 </div>
 <div id="final-model-selection" class="section level1">

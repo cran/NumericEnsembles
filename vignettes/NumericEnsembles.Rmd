@@ -1,8 +1,8 @@
 ---
-title: "NumericEnsembles"
+title: "NumericEnsembles Introduction"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{NumericEnsembles}
+  %\VignetteIndexEntry{NumericEnsembles Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -43,6 +43,7 @@ Numeric(data = MASS::Boston,
         ensemble_reduction_method = 0,
         how_to_handle_strings = 0,
         predict_on_new_data = "N",
+        stratified_random_sampling = "N",
         save_all_trained_models = "N",
         set_seed = "Y",
         save_all_plots = "N",
