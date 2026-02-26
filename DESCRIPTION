@@ -1,14 +1,14 @@
 Package: NumericEnsembles
 Title: Automatically Runs 18 Individual and 14 Ensembles of Models
-Version: 1.0.0
+Version: 1.0.3
 Authors@R: 
     person("Russ", "Conte", , "russconte@mac.com", role = c("aut", "cre", "cph"))
 Depends: Cubist, Metrics, arm, brnn, broom, car, caret, corrplot,
         doParallel, dplyr, e1071, earth, gam, gbm, ggplot2, glmnet,
-        graphics, grDevices, gridExtra, ipred, leaps, nnet, olsrr,
-        parallel, pls, purrr, randomForest, reactable, reactablefmtr,
-        readr, rpart, scales, stats, tidyr, tree, utils, vip, xgboost,
-        R (>= 4.1.0)
+        graphics, grDevices, gridExtra, htmltools, htmlwidgets, ipred,
+        leaps, nnet, olsrr, parallel, pls, purrr, randomForest,
+        reactable, readr, rpart, scales, stats, tidyr, tree, utils,
+        vip, xgboost, R (>= 4.1.0)
 Description: Automatically runs 18 individual models and 14 ensembles on numeric data, for a total of 32 models. The package automatically returns complete results on all 32 models,
     25 charts and six tables. The user simply provides the tidy data, and answers a few questions (for example, how many times would you like to resample the data).
     From there the package randomly splits the data into train, test and validation sets as the user requests (for example, train = 0.60, test = 0.20, validation = 0.20),
@@ -32,8 +32,8 @@ URL: http://www.NumericEnsembles.com,
         https://github.com/InfiniteCuriosity/NumericEnsembles
 BugReports: https://github.com/InfiniteCuriosity/NumericEnsembles/issues
 NeedsCompilation: no
-Packaged: 2026-02-15 18:45:12 UTC; russellconte
+Packaged: 2026-02-26 20:16:59 UTC; russellconte
 Author: Russ Conte [aut, cre, cph]
 Maintainer: Russ Conte <russconte@mac.com>
 Repository: CRAN
-Date/Publication: 2026-02-15 19:10:02 UTC
+Date/Publication: 2026-02-26 20:40:03 UTC
