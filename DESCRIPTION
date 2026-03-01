@@ -1,6 +1,6 @@
 Package: NumericEnsembles
 Title: Automatically Runs 18 Individual and 14 Ensembles of Models
-Version: 1.0.3
+Version: 1.0.5
 Authors@R: 
     person("Russ", "Conte", , "russconte@mac.com", role = c("aut", "cre", "cph"))
 Depends: Cubist, Metrics, arm, brnn, broom, car, caret, corrplot,
@@ -32,8 +32,8 @@ URL: http://www.NumericEnsembles.com,
         https://github.com/InfiniteCuriosity/NumericEnsembles
 BugReports: https://github.com/InfiniteCuriosity/NumericEnsembles/issues
 NeedsCompilation: no
-Packaged: 2026-02-26 20:16:59 UTC; russellconte
+Packaged: 2026-02-28 15:55:59 UTC; russellconte
 Author: Russ Conte [aut, cre, cph]
 Maintainer: Russ Conte <russconte@mac.com>
 Repository: CRAN
-Date/Publication: 2026-02-26 20:40:03 UTC
+Date/Publication: 2026-03-01 10:00:19 UTC
