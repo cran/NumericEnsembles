@@ -382,7 +382,7 @@ part:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(NumericEnsembles)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">Numeric</span>(<span class="at">data =</span> MASS<span class="sc">::</span>Boston,</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>        <span class="at">colnum =</span> <span class="dv">14</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="at">numresamples =</span> <span class="dv">2</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="at">numresamples =</span> <span class="dv">25</span>,</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>        <span class="at">remove_VIF_above =</span> <span class="fl">5.00</span>,</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>        <span class="at">remove_data_correlations_greater_than =</span> <span class="fl">1.00</span>,</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>        <span class="at">remove_ensemble_correlations_greater_than =</span> <span class="fl">1.00</span>,</span>
@@ -507,7 +507,7 @@ for each model, calculate the time.</p>
 <p>• Ensemble Trees</p>
 <p><strong>Automatic summary table</strong></p>
 <p>The function automatically creates a summary table with the following
-results for each of the 32 models, initally sorted by Holdout RMSE, but
+results for each of the 32 models, initially sorted by Holdout RMSE, but
 the table can be sorted by any column:</p>
 <p>• Model name</p>
 <p>• Holdout RMSE (accuracy)</p>

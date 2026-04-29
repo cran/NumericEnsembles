@@ -37,7 +37,7 @@ Here is what the Numeric function looks like with comments about each part:
 library(NumericEnsembles)
 Numeric(data = MASS::Boston,
         colnum = 14,
-        numresamples = 2,
+        numresamples = 25,
         remove_VIF_above = 5.00,
         remove_data_correlations_greater_than = 1.00,
         remove_ensemble_correlations_greater_than = 1.00,
@@ -198,7 +198,7 @@ Fit the model on the training data, make predictions and check accuracy on the t
 
 **Automatic summary table**
 
-The function automatically creates a summary table with the following results for each of the 32 models, initally sorted by Holdout RMSE, but the table can be sorted by any column:
+The function automatically creates a summary table with the following results for each of the 32 models, initially sorted by Holdout RMSE, but the table can be sorted by any column:
 
 • Model name
 
